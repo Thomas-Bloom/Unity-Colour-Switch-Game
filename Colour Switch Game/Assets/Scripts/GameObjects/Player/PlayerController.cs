@@ -2,23 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class GroundChecks {
+public class PlayerController : MonoBehaviour {
+    [Header("Ground Check")]
     public Transform groundCheck;
     public LayerMask whatIsGround;
     public float groundCheckRadius;
     public bool isGrounded;
-}
-
-[System.Serializable]
-public class Movement {
+    [Header("Movement")]
     public float moveSpeed;
-    public float jumpHeight;
-}
-
-public class PlayerController : MonoBehaviour {
-    public GroundChecks gc;
-    public Movement movement;
+    public float minJumpHeight;
+    public float maxJumpHeight;
+    private bool isJumping = false;
+    private bool jumpCancel = false;
 
     private Rigidbody2D rb;
 
@@ -31,22 +26,38 @@ public class PlayerController : MonoBehaviour {
         float moveHorizontal = Input.GetAxis("Horizontal");
 
         // Apply horizontal movement
-        rb.velocity = new Vector2(moveHorizontal * movement.moveSpeed * Time.deltaTime, rb.velocity.y);
+        rb.velocity = new Vector2(moveHorizontal * moveSpeed * Time.deltaTime, rb.velocity.y);
+
+        // Check to see if player wants to jump
+        if (isGrounded && Input.GetKey(KeyCode.Space)) {
+            isJumping = true;
+        }
 
     }
 
     private void FixedUpdate() {
         // Check if player is grounded
-        gc.isGrounded = Physics2D.OverlapCircle(gc.groundCheck.position, gc.groundCheckRadius,
-            gc.whatIsGround);
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius,
+            whatIsGround);
 
-        // Jump
-        if (gc.isGrounded && Input.GetKey(KeyCode.Space)) {
-            rb.AddForce(new Vector2(rb.velocity.x, movement.jumpHeight));
+        if (isJumping) {
+            LargeJump();
+            isJumping = false;
         }
+        if (jumpCancel) {
+            if(rb.velocity.y > minJumpHeight) {
+                smallJump();
+            }
+            jumpCancel = false;
+        }
+
     }
 
-    private void test() {
+    public void smallJump() {
+        rb.AddForce(new Vector2(rb.velocity.x, minJumpHeight));
+    }
 
+    public void LargeJump() {
+        rb.AddForce(new Vector2(rb.velocity.x, maxJumpHeight));
     }
 }

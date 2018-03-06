@@ -167,7 +167,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 204950706}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -2.91}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1567401422}
@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 208943727}
   - component: {fileID: 208943729}
   - component: {fileID: 208943730}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: PushBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +255,7 @@ Transform:
   m_GameObject: {fileID: 208943725}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.898, y: -2.412, z: 0}
-  m_LocalScale: {x: 1.55, y: 1.55, z: 1.5}
+  m_LocalScale: {x: 1.55, y: 1.5499998, z: 1.5}
   m_Children: []
   m_Father: {fileID: 72097896}
   m_RootOrder: 0
@@ -360,6 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a5c2149e575824782c8fd28a776751, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartColour: {r: 1, g: 0, b: 0, a: 1}
   thisColour: Red
 --- !u!1 &525988642
 GameObject:
@@ -1046,7 +1047,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1987270514}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4, y: -1.5, z: 0}
+  m_LocalPosition: {x: -4, y: -1.5, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 639318102}
@@ -1089,8 +1090,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 2
+  m_Mass: 0.8
+  m_LinearDrag: 1
   m_AngularDrag: 3
   m_GravityScale: 1.8
   m_Material: {fileID: 0}
@@ -1109,16 +1110,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05bb5618409657141b1765274054ed7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gc:
-    groundCheck: {fileID: 639318102}
-    whatIsGround:
-      serializedVersion: 2
-      m_Bits: 512
-    groundCheckRadius: 0.2
-    isGrounded: 0
-  movement:
-    moveSpeed: 300
-    jumpHeight: 100
+  groundCheck: {fileID: 639318102}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 1536
+  groundCheckRadius: 0.2
+  isGrounded: 0
+  moveSpeed: 400
+  minJumpHeight: 50
+  maxJumpHeight: 70
 --- !u!114 &1987270520
 MonoBehaviour:
   m_ObjectHideFlags: 0
