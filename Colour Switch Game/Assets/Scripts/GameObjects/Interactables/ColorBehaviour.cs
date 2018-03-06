@@ -15,20 +15,15 @@ public class ColorBehaviour : MonoBehaviour {
     }
 
     private void Update() {
+        // If same colour as the player
         if (colourChange.currentColour.Equals(thisColour)) {
-            // Same colour as player
-            print("same");
             gameObject.layer = 10;
             GetComponent<SpriteRenderer>().color = StartColour;
-            //GetComponent<SpriteRenderer>().color = thisColor;
         }
+        // If not same colour as player
         else {
-            print("not same");
             GetComponent<SpriteRenderer>().color = alphaColour;
             gameObject.layer = 11;
-            // Not same colour
-            //thisColor.a = 0.5f;
-            //GetComponent<SpriteRenderer>().color = thisColor;
         }
     }
 

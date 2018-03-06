@@ -3,7 +3,7 @@
  <image source="../../Export/GameObjects/Level/Floor_Tile.png" width="65" height="65"/>
  <tile id="0">
   <objectgroup draworder="index">
-   <object id="8" x="-0.0344485" y="0" width="64.1961" height="63.8034"/>
+   <object id="9" x="0" y="0" width="64" height="64"/>
   </objectgroup>
  </tile>
 </tileset>
