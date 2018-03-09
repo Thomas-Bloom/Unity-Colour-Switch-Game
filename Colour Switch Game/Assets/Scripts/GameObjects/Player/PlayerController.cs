@@ -10,11 +10,9 @@ public class PlayerController : MonoBehaviour {
     public bool isGrounded;
     [Header("Movement")]
     public float moveSpeed;
-    public float minJumpHeight;
-    public float maxJumpHeight;
-    private bool isJumping = false;
-    private bool jumpCancel = false;
-
+    public float jumpHeight;
+    private float moveHorizontal;
+    public float gravity = 1f;
     private Rigidbody2D rb;
 
     private void Start() {
@@ -22,42 +20,20 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void Update() {
-        // Get player input -> Horizontal movement
-        float moveHorizontal = Input.GetAxis("Horizontal");
-
-        // Apply horizontal movement
-        rb.velocity = new Vector2(moveHorizontal * moveSpeed * Time.deltaTime, rb.velocity.y);
-
         // Check to see if player wants to jump
-        if (isGrounded && Input.GetKey(KeyCode.Space)) {
-            isJumping = true;
+        if (isGrounded) {
+            if (Input.GetButtonDown("Jump")) {
+                rb.AddForce(new Vector2(0, jumpHeight));
+            }
         }
-
     }
 
     private void FixedUpdate() {
+        moveHorizontal = Input.GetAxis("Horizontal");
+        rb.velocity = new Vector2(moveHorizontal * moveSpeed, rb.velocity.y);
+
         // Check if player is grounded
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius,
             whatIsGround);
-
-        if (isJumping) {
-            LargeJump();
-            isJumping = false;
-        }
-        if (jumpCancel) {
-            if(rb.velocity.y > minJumpHeight) {
-                smallJump();
-            }
-            jumpCancel = false;
-        }
-
-    }
-
-    public void smallJump() {
-        rb.AddForce(new Vector2(rb.velocity.x, minJumpHeight));
-    }
-
-    public void LargeJump() {
-        rb.AddForce(new Vector2(rb.velocity.x, maxJumpHeight));
     }
 }
