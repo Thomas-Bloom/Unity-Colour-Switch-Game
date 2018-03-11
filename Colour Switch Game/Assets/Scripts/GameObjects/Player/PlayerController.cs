@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour {
     public Transform spawnPoint;
     public ParticleSystem deathParticles;
     public bool playerIsAlive;
+    public Camera mainCam;
 
     private void Start() {
         transform.position = spawnPoint.position;
@@ -38,8 +39,6 @@ public class PlayerController : MonoBehaviour {
                 rb.AddForce(new Vector2(0, jumpHeight));
             }
         }
-
-
     }
 
     private void FixedUpdate() {
@@ -51,10 +50,16 @@ public class PlayerController : MonoBehaviour {
             whatIsGround);
     }
 
+    // COLLISION CODE
     private void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject.tag.Equals("KillPlayer")) {
+            killPlayer();           
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject.name.Equals("Inside_Collider")) {
             killPlayer();
-            StartCoroutine(waitForSpawn(2f));
         }
     }
 
@@ -65,6 +70,7 @@ public class PlayerController : MonoBehaviour {
         GetComponent<PlayerController>().enabled = false;
         GetComponent<Rigidbody2D>().isKinematic = true;
         deathParticles.gameObject.SetActive(true);
+        StartCoroutine(waitForSpawn(2f));
     }
 
     public void spawnPlayer() {
@@ -75,6 +81,7 @@ public class PlayerController : MonoBehaviour {
         GetComponent<Rigidbody2D>().isKinematic = false;
         transform.position = spawnPoint.position;
         deathParticles.gameObject.SetActive(false);
+        mainCam.transform.position = transform.position;
     }
 
     private IEnumerator waitForSpawn(float waitTime) {
