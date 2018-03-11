@@ -8,10 +8,8 @@ public class ColorBehaviour : MonoBehaviour {
     private Color alphaColour;
     public string thisColour;
     public GameObject insideCollider;
-    private PlayerController player;
 
     void Start() {
-        player = FindObjectOfType<PlayerController>();
         colourChange = FindObjectOfType<ColourChange>();
         alphaColour = StartColour;
         alphaColour.a = 0.3f;

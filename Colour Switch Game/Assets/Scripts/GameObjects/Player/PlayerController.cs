@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EZCameraShake;
 
 public class PlayerController : MonoBehaviour {
     [Header("Ground Check")]
@@ -19,8 +20,8 @@ public class PlayerController : MonoBehaviour {
     [Header("Death")]
     public Transform spawnPoint;
     public ParticleSystem deathParticles;
-    public bool playerIsAlive;
-    public Camera mainCam;
+    public static bool playerIsAlive;
+    public GameObject mainCam;
 
     private void Start() {
         transform.position = spawnPoint.position;
@@ -64,6 +65,8 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void killPlayer () {
+        // Magnitude, roughness, fadein, fadeout
+        CameraShaker.Instance.ShakeOnce(4f, 2f, 0.1f, 1f);
         playerIsAlive = false;
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<BoxCollider2D>().enabled = false;

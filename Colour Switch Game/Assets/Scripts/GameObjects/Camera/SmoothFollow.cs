@@ -8,7 +8,7 @@ public class SmoothFollow : MonoBehaviour {
     public Vector3 offset;
 
     private void LateUpdate() {
-        if (target.GetComponent<PlayerController>().playerIsAlive) {
+        if (PlayerController.playerIsAlive) {
             Vector3 newPosition = target.position;
             newPosition.z = -10;
             transform.position = Vector3.Slerp(transform.position, newPosition, smoothSpeed * Time.deltaTime);
